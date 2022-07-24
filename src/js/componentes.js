@@ -7,6 +7,7 @@ const txtInput = document.querySelector('.new-todo');
 const btnborrarCompletados = document.querySelector('.clear-completed');
 const ulFiltros = document.querySelector('.filters');
 const anchorFiltros = document.querySelectorAll('.filtro');
+export const countTodo = document.querySelector('.todo-count');
 
 
 export const crearTodoHtml = (todo) => {

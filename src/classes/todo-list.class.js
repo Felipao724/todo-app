@@ -1,18 +1,22 @@
+import { countTodo } from '../js/componentes';
 import { Todo } from './todo.class';
 
 export class TodoList {
 	constructor() {
 		this.cargarLocalStorage();
+		this.countTodo();
 	}
 
 	nuevoTodo(todo) {
 		this.todos.push(todo);
 		this.guardarLocalStorage();
+		this.countTodo();
 	}
 
 	eliminarTodo(id) {
 		this.todos = this.todos.filter((todo) => todo.id != id);
 		this.guardarLocalStorage();
+		this.countTodo();
 	}
 
 	toggleTodo(id) {
@@ -20,6 +24,7 @@ export class TodoList {
 			if (todo.id == id) {
 				todo.completado = !todo.comletado;
 				this.guardarLocalStorage();
+				this.countTodo();
 
 				break;
 			}
@@ -29,6 +34,7 @@ export class TodoList {
 	eliminarCompletados() {
 		this.todos = this.todos.filter((todo) => !todo.completado);
 		this.guardarLocalStorage();
+		this.countTodo();
 	}
 
 	guardarLocalStorage() {
@@ -40,6 +46,16 @@ export class TodoList {
 			? JSON.parse(localStorage.getItem('todo'))
 			: [];
 
-		this.todos = this.todos.map( Todo.fromJson );
+		this.todos = this.todos.map(Todo.fromJson);
+	}
+
+	countTodo() {
+		let pendientes = 0;
+		let countBox = countTodo.firstElementChild;
+		for (let todo of this.todos) {
+			!todo.completado ? pendientes++ : null;
+		}
+
+		countBox.innerHTML = pendientes;
 	}
 }
