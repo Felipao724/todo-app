@@ -48,7 +48,10 @@ divTodoList.addEventListener('click', (event) => {
     if (nombreElemento.includes('input')) { //Click en el check
         todoList.toggleTodo(todoId);
         todoElemento.classList.toggle('completed');
+    } else if (nombreElemento.includes('button')) {
+
+        todoList.eliminarTodo( todoId );
+        divTodoList.removeChild(todoElemento);
     }
 
-    console.log(todoList)
 })
