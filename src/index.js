@@ -4,13 +4,11 @@ import './styles.css';
 
 export const todoList = new TodoList();
 
-const tarea = new Todo('No te la jales cabron');
+todoList.todos.forEach(crearTodoHtml);
 
-todoList.nuevoTodo(tarea);
+const newTodo = new Todo('Aprender JavaScript')
+todoList.nuevoTodo(newTodo);
 
-console.log(todoList);
-
-crearTodoHtml( tarea );
-
+console.log('todos', todoList.todos);
 
 
