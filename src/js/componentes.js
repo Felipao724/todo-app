@@ -4,6 +4,7 @@ import { todoList } from '../index';
 // Referencias
 const divTodoList = document.querySelector('.todo-list');
 const txtInput = document.querySelector('.new-todo');
+const btnborrarCompletados = document.querySelector('.clear-completed');
 
 
 export const crearTodoHtml = (todo) => {
@@ -40,18 +41,32 @@ txtInput.addEventListener('keyup', (event) => {
 
 
 divTodoList.addEventListener('click', (event) => {
+	const nombreElemento = event.target.localName;
+	const todoElemento = event.target.parentElement.parentElement;
+	const todoId = todoElemento.getAttribute('data-id');
 
-    const nombreElemento = event.target.localName;
-    const todoElemento = event.target.parentElement.parentElement;
-    const todoId = todoElemento.getAttribute('data-id');
+	if (nombreElemento.includes('input')) {
+		//Click en el check
+		todoList.toggleTodo(todoId);
+		todoElemento.classList.toggle('completed');
+	} else if (nombreElemento.includes('button')) {
+		todoList.eliminarTodo(todoId);
+		divTodoList.removeChild(todoElemento);
+	}
+});
 
-    if (nombreElemento.includes('input')) { //Click en el check
-        todoList.toggleTodo(todoId);
-        todoElemento.classList.toggle('completed');
-    } else if (nombreElemento.includes('button')) {
 
-        todoList.eliminarTodo( todoId );
-        divTodoList.removeChild(todoElemento);
+btnborrarCompletados.addEventListener('click', () => {
+    
+    todoList.eliminarCompletados();
+    
+    for( let i = divTodoList.children.length - 1; i >= 0; i-- ) {
+
+        const elemento = divTodoList.children[i];
+
+        if ( elemento.classList.contains('completed')) {
+            divTodoList.removeChild(elemento);
+        }
+
     }
-
 })
